@@ -205,8 +205,15 @@
             "image":"IMG_0699 - Laksh Dhir.jpeg",
             "facebook":"https://www.instagram.com/laksh_dhir30/"
         },
-        {
+         {
             "id":19,
+            "name":"Lakshya Gupta ",
+            "email":"lakshyag24@iitk.ac.in",
+            "image":"lakshya_24.jpg",
+            "facebook":"https://www.instagram.com/lakshyag911/"
+        },
+        {
+            "id":20,
             "name" : "Naitik Lalchandani",
             "email":"naitik24@iitk.ac.in",
             "image":"naitik_24 - Naitik Lalchandani.jpg",
@@ -214,41 +221,47 @@
             "facebook":"https://www.instagram.com/natty.773/"
         },
         {
-            "id":20,
+            "id":21,
             "name":"Nishant Kumar",
             "email":"nishantk24@iitk.ac.in",
             "image":"Nishant_24 - Nishant Dwivedi.jpg",
             "facebook":"https://www.instagram.com/nishant._dwivedi52/"
         },
         {
-            "id":21,
+            "id":22,
             "name":"Parth Dhamija",
             "email":"Parthd24@iitk.ac.in",
-            "image":"",
+            "image":"parth.jpg",
             "facebook":"https://www.instagram.com/parth._.dhamija/"
         },
         {
-            "id":22,
+            "id":23,
             "name":"Prakhar",
             "email":"prakhark24@iitk.ac.in",
             "image":"Prakhar_24 - Prakhar.jpg",
-            "linkedin":"https://www.linkedin.com/in/shrasti-dwivedi-396b1927a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
             "facebook":"https://www.instagram.com/prakhar7265/" },
+         {
+            "id":24,
+            "name":"Pratham Gupta",
+            "email":"prathamg24@iitk.ac.in",
+            "image":"Prakhar_24 - Prakhar.jpg",
+            "facebook":"https://www.instagram.com/prathamg007/" },
+        
         {
-            "id":23,
+            "id":25,
             "name":"Ramya Rasika .S.R",
             "email":"ramyar24@iitk.ac.in",
             "image":"ramyar24 - Ramya Rasika.jpeg",
             "facebook":"https://www.instagram.com/t0n.16b_?igsh=NnMyMmc5ZTBsMHA3"},
         {
-            "id":24,
+            "id":26,
             "name":"Ria Agrawal ",
             "email":"riaa24@iitk.ac.in",
             "image":"riaa24 - Ria Agrawal.jpg",
             "linkedin":"",
             "facebook":"https://www.instagram.com/ria.a_13/" },
         {
-            "id":25,
+            "id":27,
             "name" : "Sahil Agarwal",
             "email":"sahilag24@iitk.ac.in",
             "image":"IMG_20250608_184213 - Sahil Agarwal.jpg",
@@ -256,7 +269,15 @@
             "facebook":"https://www.instagram.com/sahilagarwal2005?igsh=MWVtZzExM2sybjJtOA=="
         },
         {
-            "id":26,
+            "id":28,
+            "name" : "Shubham",
+            "email":"shubham24@iitk.ac.in",
+            "image":"Shubham.jpg",
+            "linkedin":"",
+            "facebook":"https://www.instagram.com/ham_shubh_/"
+        },
+        {
+            "id":29,
             "name" : "Sivaganesh B",
             "email":"sivaganesh24@iitk.ac.in",
             "image":"Sivaganesh_24 - Sivaganesh Bharath Kumar.jpg",
@@ -264,19 +285,19 @@
             "facebook":"https://www.instagram.com/sivxgxnxsh_/"
         },
         {
-            "id":27,
+            "id":30,
             "name":"Sparsh Jain",
             "email":"sparshp24@iitk.ac.in",
             "image":"Sparsh_24 - Sparsh Jain.jpg",
             "facebook":"https://www.instagram.com/sparshj636/"        },
      {
-            "id":28,
+            "id":31,
             "name":"Sreeja Srinivasan",
             "email":"sreejas24@iitk.ac.in",
             "image":"sreeja_24 - Sreeja Srinivasan.jpeg",
             "facebook":""        },
    {
-            "id":29,
+            "id":32,
             "name":"Tarun Goyal ",
             "email":"tarung24@iitk.ac.in",
             "image":"Screenshot_2025-06-11-22-35-01-25_6012fa4d4ddec268fc5c7112cbb265e7 - Tarun Goyal.jpg",
