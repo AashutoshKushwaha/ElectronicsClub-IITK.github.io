@@ -46,7 +46,7 @@ function App() {
      
     
       <Card title="Coordinators" items={data.coordi} /><br></br><br></br><br></br>
-      <Card title="Coordinators 23-24" items={data.pastcoordi} /><br></br><br></br><br></br>
+      <Card title="Coordinators 24-25" items={data.pastcoordi} /><br></br><br></br><br></br>
       <Card title="Secretaries" items={data.manager} />
     </>
       );
