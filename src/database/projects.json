@@ -1,6 +1,54 @@
 {
 "Projects":[
     {
+      "year": "25",
+      "title": "Analog Neural Network",
+      "description": "Building a physical perceptron for neural networks using analog components and exploring the depths of electrical circuitry.",
+      "imagePath": "images/projects/summer25/ANN.jpg",
+      "fullDescription":"Building a physical perceptron for neural networks using analog components and exploring the depths of electrical circuitry.",
+      "pdfPath": "pdfs25/ANN.pdf"
+    }, 
+     {
+      "year": "25",
+      "title": "Flexe Glove",
+      "description": "Making a 3D fully controlled hand model that can translate voltage signals to hand movements, translate sign language and adding audio effects to a song using gestures.",
+      "imagePath": "images/projects/summer25/flexeglove.jpeg",
+      "fullDescription": "Making a 3D fully controlled hand model that can translate voltage signals to hand movements, translate sign language and adding audio effects to a song using gestures.",
+      "pdfPath": "pdfs25/flexeglove.pdf"
+    }, 
+    {
+      "year": "25",
+      "title": "DoodleBot",
+      "description": "DoodleBot is a drawing robot that replicates sketches made on a touchscreen onto paper. It uses image processing to interpret the input and precise motor control to recreate drawings in real-time with a pen-mounted arm.",
+      "imagePath": "images/projects/summer25/Doodlebot.jpg",
+      "fullDescription":"DoodleBot is a drawing robot that replicates sketches made on a touchscreen onto paper. It uses image processing to interpret the input and precise motor control to recreate drawings in real-time with a pen-mounted arm.",
+      "pdfPath": "pdfs25/Doodlebot.pdf"
+    }, 
+     {
+      "year": "25",
+      "title": "Enigma",
+      "description": "Reviving the marvel of electro-mechanical cryptography with the making of the iconic ENIGMA Machine.",
+      "imagePath": "images/projects/summer25/enigma.jpg",
+      "fullDescription":"Reviving the marvel of electro-mechanical cryptography with the making of the iconic ENIGMA Machine.",
+      "pdfPath": "pdfs25/Enigma.pdf"
+    }, 
+     {
+      "year": "25",
+      "title": "GROOVE",
+      "description": "Analyzing singing performance in Indian classical music using machine learning and signal processing and building an objective feedback virtual teacher.",
+      "imagePath": "images/projects/summer25/virtualsinger.webp",
+      "fullDescription":"Analyzing singing performance in Indian classical music using machine learning and signal processing and building an objective feedback virtual teacher.",
+      "pdfPath": "pdfs25/groove.pdf"
+    }, 
+    {
+      "year": "25",
+      "title": "Image Processing in FPGA",
+      "description": "The project explores the intersection of image processing and digital hardware design, leveraging the capabilities of FPGAs to perform parallel data processing with ultralow latency. ",
+      "imagePath": "images/projects/summer25/fpga.png",
+      "fullDescription": "The project explores the intersection of image processing and digital hardware design, leveraging the capabilities of FPGAs to perform parallel data processing with ultralow latency. ",
+      "pdfPath": "pdfs25/Image_Processing_in_FPGA.pdf"
+    }, 
+  {
       "year": "23",
       "title": "Smart Watch",
       "description": "The project aims to make a prototype of a cheaper fitness watch using a microcontroller with a fall detection system.",
