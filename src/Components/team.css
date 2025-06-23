@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@500&family=Lato&family=Roboto+Slab:wght@300&family=Ruwudu&display=swap');
 h1,h2{
 	 font-family: 'Ruwudu', serif;;
+	  overflow: hidden; 
 }
 .card-title{
 	font-family: 'Gabarito', serif;;

@@ -51,6 +51,17 @@ const Navbar = () => {
                 Get Components
               </Link>
             </li>
+            <li className="nav__item">
+               <Link to="/Challenge" id={isActive("/Challenge") ? "active" : ""} className="nav__link">
+                 Monthly Challenge
+                 </Link>
+            </li>
+            <li className="nav__item">
+                 <Link to="/Leaderboard" id={isActive("/Leaderboard") ? "active" : ""} className="nav__link">
+                   Leaderboard
+                   </Link>
+             </li>
+            
           </ul>
         </div>
       </nav>

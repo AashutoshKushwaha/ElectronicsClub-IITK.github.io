@@ -1,0 +1,94 @@
+.challenge-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.challenge-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/public/challenge-bg.avif');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.6;
+}
+
+.challenge-content {
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: rgb(191, 255, 0);
+  padding: 40px 48px;
+  max-width: 900px;
+  width: 90%;
+  min-height: 20vh;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+
+.challenge-content::-webkit-scrollbar {
+  width: 12px;
+}
+.challenge-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+.challenge-content::-webkit-scrollbar-thumb {
+  background: #BBDF4D;
+  border-radius: 10px;
+}
+.challenge-content::-webkit-scrollbar-thumb:hover {
+  background: rgb(191, 255, 0);
+}
+
+.challenge-content h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  overflow: visible;
+}
+
+.challenge-content h2 {
+  font-size: 2rem;
+  margin: 20px 0 10px;
+  overflow: visible;
+}
+
+.challenge-content p {
+  font-size: 1.2em;
+  color: white;
+  margin: 15px 0;
+  line-height: 1.6;
+  white-space: normal;
+  height: auto;
+  overflow: visible !important;
+  display: block;
+  -webkit-line-clamp: none !important;
+  text-overflow: clip;
+  word-break: break-word;
+  word-wrap: break-word; /* Legacy support */
+}
+
+.challenge-content a {
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 1.1em;
+  color: #BBDF4D;
+  text-decoration: none;
+  border: 1px solid #BBDF4D;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.challenge-content a:hover {
+  background-color: #BBDF4D;
+  color: black;
+}

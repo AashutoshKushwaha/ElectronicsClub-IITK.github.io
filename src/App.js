@@ -12,7 +12,8 @@ import Section2 from './Components/section2';
 import Section3 from './Components/section3';
 import Section4 from './Components/section4';
 import Homefinal from './Components/homefinal';
-
+import Challenge from './Components/Challenge';
+import Leaderboard from './Components/Leaderboard';
 function App() {
   return (
     <div className="App">
@@ -24,6 +25,8 @@ function App() {
           <Route path="/Database" element={<Database/>}></Route>
           <Route path="/Team" element={<Team/>}></Route>
           <Route path="/Comp" element={<Comp/>}></Route>
+          <Route path="/Challenge" element={<Challenge />} />
+          <Route path="/Leaderboard" element={<Leaderboard />} />
         </Routes> 
       </Router>
       <br></br>
