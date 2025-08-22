@@ -14,8 +14,11 @@ import Section4 from './Components/section4';
 import Homefinal from './Components/homefinal';
 import Challenge from './Components/Challenge';
 import Leaderboard from './Components/Leaderboard';
+import Articles from './Components/Articles';
+import ArticlePage from './Components/ArticlePage';   
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+
 
 function RedirectHandler() {
   const navigate = useNavigate();
@@ -33,16 +36,19 @@ function RedirectHandler() {
 
   return null;
 }
+
 function App() {
   return (
     <div className="App">
       <Router>
-        <RedirectHandler />  {/* This handles redirects on refresh/direct URL */}
+        <RedirectHandler /> {/* Handles redirects on refresh/direct URL */}
         <Navbar />
         <Routes>
           <Route path="/" element={<Homefinal />} />
           <Route path="/Projects" element={<Projects />} />
           <Route path="/Database" element={<Database />} />
+          <Route path="/Articles" element={<Articles />} />
+          <Route path="/Articles/:id" element={<ArticlePage />} /> {}
           <Route path="/Team" element={<Team />} />
           <Route path="/Comp" element={<Comp />} />
           <Route path="/Challenge" element={<Challenge />} />
@@ -53,4 +59,5 @@ function App() {
     </div>
   );
 }
+
 export default App;

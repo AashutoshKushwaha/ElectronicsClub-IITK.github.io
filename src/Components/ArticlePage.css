@@ -1,0 +1,47 @@
+.article-page {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 32px;
+  background: rgba(17, 25, 40, 0.97);
+  border-radius: 14px;
+  color: #f2f2f2;
+  font-size: 1.12rem;
+  line-height: 1.8;
+  box-shadow: 0 10px 32px rgba(0,0,0,0.12);
+}
+
+.article-page h1, .article-page h2, .article-page h3 {
+  color: #BBDF4D;
+  margin-top: 36px;
+}
+
+.article-page pre, .article-page code {
+  background: #222;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: "Fira Mono", monospace;
+  font-size: 1rem;
+  color: #BBDF4D;
+  margin: 18px 0;
+}
+
+.article-page img {
+  display: block;
+  margin: 24px auto;
+  max-width: 80%;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+
+.article-page ul, .article-page ol {
+  margin-left: 30px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: #BBDF4D;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+}
