@@ -1,14 +1,11 @@
 {
   "Articles": [
     {
-      "id": "quantum-computing-101",
       "title": "Quantum Computing 101: How to Build a Quantum Computer",
-      "description": "A beginner-friendly guide to the basics of quantum computing.",
+      "description": "A beginner-friendly guide to the basics of quantum computing, including how quantum gates and qubits work.",
       "imagePath": "articles/quantum.webp",
-      "date": "2025-06-30",
-      "author": "Your Name",
-      "year": "2025",
-      "content": "<p>Quantum computing is a paradigm shift in computation...</p><p><strong>Key ideas:</strong> qubits, superposition, entanglement...</p><h2>Step 1: Understanding Qubits</h2><p>Unlike classical bits...</p>"
+      "url": "https://medium.com/electronics-club-iitk/quantum-computing-101-how-to-build-a-quantum-computer-77c7311333f8",
+      "year": "2025"
     }
   ]
 }

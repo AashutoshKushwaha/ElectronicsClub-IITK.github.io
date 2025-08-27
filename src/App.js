@@ -14,8 +14,7 @@ import Section4 from './Components/section4';
 import Homefinal from './Components/homefinal';
 import Challenge from './Components/Challenge';
 import Leaderboard from './Components/Leaderboard';
-import Articles from './Components/Articles';
-import ArticlePage from './Components/ArticlePage';   
+import Articles from './Components/Articles';  
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -48,7 +47,7 @@ function App() {
           <Route path="/Projects" element={<Projects />} />
           <Route path="/Database" element={<Database />} />
           <Route path="/Articles" element={<Articles />} />
-          <Route path="/Articles/:id" element={<ArticlePage />} /> {}
+         
           <Route path="/Team" element={<Team />} />
           <Route path="/Comp" element={<Comp />} />
           <Route path="/Challenge" element={<Challenge />} />
