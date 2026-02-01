@@ -5,15 +5,33 @@ const Leaderboard = () => {
   const [groupedData, setGroupedData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Helper: Converts Google Drive share links to direct image links
+// Helper: Converts Google Drive share links to a high-quality thumbnail link
+  const getDirectImageSrc = (url) => {
+    if (!url) return null;
+    
+    // Check if it's a google drive link
+    if (url.includes('drive.google.com')) {
+      // Extract the ID
+      const idMatch = url.match(/\/d\/(.*?)\/|id=(.*?)(&|$)/);
+      const id = idMatch ? (idMatch[1] || idMatch[2]) : null;
+      if (id) {
+        // CHANGED: Use the 'thumbnail' endpoint with size w1000 (width 1000px)
+        // This is much more reliable for embedding than export=view
+        return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+      }
+    }
+    // If it's a direct link (like imgur), just return it as is
+    return url;
+  };
+
   useEffect(() => {
-    // Replace with your actual GID
     fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRlYfXayJkfwtIWcG5-w8_UEt66uGRqDLOf4SFBbtzuO_5zO9a7Uwv8a4-An3f9thC-5NtdCqAkiNzR/pub?output=csv&gid=918222027')
       .then(res => res.text())
       .then(csv => {
         const [headerLine, ...lines] = csv.trim().split('\n');
         const headers = headerLine.split(',').map(h => h.trim());
 
-        // Parse CSV into a flat array of objects first
         const rawEntries = lines.map(line => {
           const cols = line.split(',');
           return headers.reduce((obj, key, i) => {
@@ -22,40 +40,45 @@ const Leaderboard = () => {
           }, {});
         });
 
-        // Group data by Month and Challenge Name
-        // Assumption based on prompt: 
-        // Index 0 = Challenge Name
-        // Index 1 = Month
-        // Rest = Data (Roll, Name, Rank)
         const groups = {};
         
         rawEntries.forEach(entry => {
           const challengeName = entry[headers[0]]; 
           const month = entry[headers[1]];
-          const groupKey = `${month}::${challengeName}`; // Unique key for grouping
+          const groupKey = `${month}::${challengeName}`;
 
           if (!groups[groupKey]) {
             groups[groupKey] = {
               month: month,
               challengeName: challengeName,
+              imageUrl: null, // Initialize image container
               entries: []
             };
           }
 
-          // Create a new object excluding the Challenge and Month from the table rows
-          // to avoid repetitive columns
+          // Create a copy of the row data
           const entryData = { ...entry };
-          delete entryData[headers[0]];
-          delete entryData[headers[1]];
+
+          // 1. Look for the ImageURL column
+          // We look for a column strictly named "ImageURL"
+          if (entryData['ImageURL']) {
+            // If this group doesn't have an image yet, set it
+            if (!groups[groupKey].imageUrl) {
+              groups[groupKey].imageUrl = getDirectImageSrc(entryData['ImageURL']);
+            }
+          }
+
+          // 2. Cleanup: Delete columns we don't want in the table
+          delete entryData[headers[0]]; // Remove Challenge Name column
+          delete entryData[headers[1]]; // Remove Month column
+          delete entryData['ImageURL']; // Remove ImageURL column (so it doesn't show in table)
           
           groups[groupKey].entries.push(entryData);
         });
 
-        // Convert groups object to array and sort by Date (Latest first)
         const sortedGroups = Object.values(groups).sort((a, b) => {
           const dateA = new Date(a.month);
           const dateB = new Date(b.month);
-          // Sort descending (newest first)
           return dateB - dateA;
         });
 
@@ -86,6 +109,7 @@ const Leaderboard = () => {
             <table>
               <thead>
                 <tr>
+                  {/* Dynamically render headers based on remaining keys */}
                   {group.entries.length > 0 && Object.keys(group.entries[0]).map(h => (
                     <th key={h}>{h}</th>
                   ))}
@@ -101,6 +125,18 @@ const Leaderboard = () => {
                 ))}
               </tbody>
             </table>
+
+            {/* Check if this group has an image URL and render it */}
+            {group.imageUrl && (
+              <div className="challenge-image-container">
+                <img 
+                  src={group.imageUrl} 
+                  alt={`${group.month} Challenge Highlight`} 
+                  className="challenge-image"
+                />
+              </div>
+            )}
+
           </div>
         ))}
         

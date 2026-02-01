@@ -66,7 +66,11 @@ const Navbar = () => {
                    Leaderboard
                    </Link>
              </li>
-            
+            <li className="nav__item">
+                 <Link to="/Gallery" id={isActive("/Gallery") ? "active" : ""} className="nav__link">
+                   Gallery
+                   </Link>
+             </li>
           </ul>
         </div>
       </nav>

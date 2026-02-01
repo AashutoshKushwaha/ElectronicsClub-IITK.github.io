@@ -1,14 +1,19 @@
-body {
+/* Articles.css */
+
+/* Removed 'body' selector to prevent navbar squashing */
+.article-page-container {
   background: #000000;
   background-size: cover;
   background-position: center;
   display: flex;
+  flex-direction: column; /* Changed to column to stack heading and cards naturally */
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Prevents vertical 'squeezing' */
   margin: 0;
   padding: 0;
   color: #BBDF4D;
   font-family: 'Lato', sans-serif;
+  min-height: 100vh; /* Ensures the black background covers the whole screen */
 }
 
 .article-heading {
@@ -25,6 +30,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   padding: 20px;
+  width: 100%; /* Ensures it spans the full width of the container */
 }
 
 .article-card {
