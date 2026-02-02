@@ -9,19 +9,16 @@ const FOLDER_ID = '1SDMIBSuweTO3zHHKqZXy7nMpEMPhVOK9';
 // ==========================================
 
 const Gallery = () => {
-  const [images, setImages] = useState([]);
+  const [items, setItems] = useState([]); // Renamed from 'images' to 'items'
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Helper: Fisher-Yates Shuffle Algorithm to randomize order
+  // Helper: Fisher-Yates Shuffle
   const shuffleArray = (array) => {
     let currentIndex = array.length, randomIndex;
-    // While there remain elements to shuffle...
     while (currentIndex !== 0) {
-      // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-      // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
@@ -29,60 +26,65 @@ const Gallery = () => {
   };
 
   useEffect(() => {
-    const fetchImagesFromDrive = async () => {
+    const fetchMediaFromDrive = async () => {
       try {
-        const query = `'${FOLDER_ID}' in parents and trashed = false and mimeType contains 'image/'`;
-        // Request metadata (width/height) to assign smart sizes
-        const url = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(query)}&fields=files(id,name,imageMediaMetadata)&key=${API_KEY}`;
+        // CHANGED: Query now asks for images OR videos
+        const query = `'${FOLDER_ID}' in parents and trashed = false and (mimeType contains 'image/' or mimeType contains 'video/')`;
+        
+        // CHANGED: We request 'videoMediaMetadata' too
+        const url = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(query)}&fields=files(id,name,mimeType,imageMediaMetadata,videoMediaMetadata)&key=${API_KEY}`;
 
         const response = await fetch(url);
         const data = await response.json();
 
-        if (data.error) {
-          throw new Error(data.error.message);
-        }
+        if (data.error) throw new Error(data.error.message);
 
-        const processedImages = data.files.map(file => {
-          // Get dimensions from Drive metadata
-          const width = file.imageMediaMetadata ? file.imageMediaMetadata.width : 1;
-          const height = file.imageMediaMetadata ? file.imageMediaMetadata.height : 1;
+        const processedItems = data.files.map(file => {
+          const isVideo = file.mimeType.startsWith('video');
+          
+          // Get metadata from the correct property
+          const metadata = isVideo ? file.videoMediaMetadata : file.imageMediaMetadata;
+          
+          // Fallback if metadata is missing (sometimes happens with new files)
+          const width = metadata ? metadata.width : 1;
+          const height = metadata ? metadata.height : 1;
           const aspectRatio = width / height;
           
-          // INTELLIGENT SIZING LOGIC:
-          // Assigns classes based on real image shape to create the "collage" puzzle fit
-          let sizeClass = 'item-small'; // Default 1x1 block
+          // INTELLIGENT SIZING LOGIC
+          let sizeClass = 'item-small'; 
           
-          // You can tweak these ratios to change how often "big" blocks appear
           if (aspectRatio < 0.75) {
-            sizeClass = 'item-tall'; // 1x2 block (Portrait)
+            sizeClass = 'item-tall'; // Portrait
           } else if (aspectRatio > 1.3) {
-             sizeClass = 'item-wide'; // 2x1 block (Landscape)
+             sizeClass = 'item-wide'; // Landscape
           } else if (width > 1200 && height > 1200) {
-            sizeClass = 'item-big';  // 2x2 block (Big Square)
+            sizeClass = 'item-big';  // High-res Square
           }
 
           return {
             id: file.id,
+            // Drive generates thumbnails for videos too!
             src: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
             alt: file.name,
-            sizeClass: sizeClass
+            sizeClass: sizeClass,
+            isVideo: isVideo,
+            // Link to open video in new tab (since autoplaying grid videos is heavy)
+            videoLink: isVideo ? `https://drive.google.com/file/d/${file.id}/view` : null
           };
         });
 
-        // SHUFFLE the images before setting state so the order is random every time
-        const randomizedImages = shuffleArray(processedImages);
-        
-        setImages(randomizedImages);
+        const randomizedItems = shuffleArray(processedItems);
+        setItems(randomizedItems);
         setLoading(false);
 
       } catch (err) {
-        console.error("Error fetching images from Drive:", err);
+        console.error("Error fetching media:", err);
         setError(err.message);
         setLoading(false);
       }
     };
 
-    fetchImagesFromDrive();
+    fetchMediaFromDrive();
   }, []);
 
   if (error) {
@@ -91,7 +93,7 @@ const Gallery = () => {
         <div className="gallery-bg" />
         <div className="gallery-content">
           <h1 className="gallery-title">Gallery</h1>
-          <p className="error-message">Error: {error}. Please check your API Key settings.</p>
+          <p className="error-message">Error: {error}</p>
         </div>
       </div>
     );
@@ -107,24 +109,29 @@ const Gallery = () => {
 
         {!loading && (
           <div className="gallery-grid">
-            {images.map(image => (
+            {items.map(item => (
               <div 
-                key={image.id} 
-                className={`gallery-item ${image.sizeClass}`}
+                key={item.id} 
+                className={`gallery-item ${item.sizeClass}`}
+                // If it's a video, clicking opens it. If image, it does nothing (or you can add lightbox)
+                onClick={() => item.isVideo && window.open(item.videoLink, '_blank')}
               >
                 <img 
-                  src={image.src} 
-                  alt={image.alt} 
+                  src={item.src} 
+                  alt={item.alt} 
                   className="gallery-img" 
                   loading="lazy" 
                 />
-                <div className="gallery-overlay"></div>
+                
+                {/* Visual Overlay */}
+                <div className="gallery-overlay">
+                  {/* Show Play Button text only if it's a video */}
+                  {item.isVideo && <span className="play-icon">▶</span>}
+                </div>
               </div>
             ))}
           </div>
         )}
-        
-        {!loading && images.length === 0 && <p>No images found in the Drive folder.</p>}
       </div>
     </div>
   );
