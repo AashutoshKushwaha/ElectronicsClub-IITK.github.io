@@ -77,11 +77,6 @@ const Footer = () => {
                 Get Components
               </a>
             </p>
-            <p>
-              <a href="/RecentCompetitions" className="text-reset">
-                Recent Competitions
-              </a>
-            </p>
           </div>
           {/* Grid column */}
           {/* Grid column */}
