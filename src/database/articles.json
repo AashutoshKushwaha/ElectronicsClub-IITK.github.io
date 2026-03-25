@@ -1,6 +1,13 @@
 {
   "Articles": [
     {
+      "title": "Tiny Boards, Big Brains: What’s Really Powering the Edge AI Revolution",
+      "description": "Tiny chips are quietly bringing AI out of billion-dollar data centers and into cameras, robots, and sensors — making split-second intelligence possible anywhere, no cloud required.",
+      "imagePath": "articles/edgeai.webp",
+      "url": "https://medium.com/electronics-club-iitk/tiny-boards-big-brains-whats-really-powering-the-edge-ai-revolution-6c87e030e711",
+      "year": "2026"
+    },
+    {
       "title": "Quantum Computing 101: How to Build a Quantum Computer",
       "description": "A beginner-friendly guide to the basics of quantum computing, including how quantum gates and qubits work.",
       "imagePath": "articles/quantum.webp",
