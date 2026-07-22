@@ -1,17 +1,12 @@
 import './App.css';
 import Navbar from './Components/Navbar';
-import Home from './Components/Home';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Team from './Components/Team';
 import Projects from './Components/Projects';
 import Database from './Components/Database';
 import Comp from './Components/Comp';
 import Footer from './Components/Footer';
-import Section1 from './Components/section1';
-import Section2 from './Components/section2';
-import Section3 from './Components/section3';
-import Section4 from './Components/section4';
-import Homefinal from './Components/homefinal';
+import CyberHome from './Components/cyber/CyberHome';
 import Challenge from './Components/Challenge';
 import Leaderboard from './Components/Leaderboard';
 import Articles from './Components/Articles';  
@@ -44,7 +39,7 @@ function App() {
         <RedirectHandler /> {/* Handles redirects on refresh/direct URL */}
         <Navbar />
         <Routes>
-          <Route path="/" element={<Homefinal />} />
+          <Route path="/" element={<CyberHome />} />
           <Route path="/Projects" element={<Projects />} />
           <Route path="/Database" element={<Database />} />
           <Route path="/Articles" element={<Articles />} />

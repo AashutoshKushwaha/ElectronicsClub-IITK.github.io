@@ -1,9 +1,22 @@
 .App {
   text-align: center;
 }
-*{
-  overflow-x: hidden;
+
+/* Projects.css declares `body { display: flex }`, which CRA bundles globally — that
+   turned <body> into a flex container and #root into a flex item (min-width:auto),
+   blowing the layout out horizontally on every page. Force normal block flow.
+   Higher specificity (html body) so it wins regardless of stylesheet order. */
+html body {
+  display: block;
 }
+
+*{
+  /* clip (not hidden) prevents horizontal overflow WITHOUT turning every element
+     into a vertical scroll container — `overflow-x: hidden` was coercing overflow-y
+     to `auto`, which spawned stray inner scrollbars on headings/sections. */
+  overflow-x: clip;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
