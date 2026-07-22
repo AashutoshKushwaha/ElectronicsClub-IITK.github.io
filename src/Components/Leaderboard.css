@@ -1,139 +1,513 @@
-.leaderboard-container {
+/* ==================================================================
+   LEADERBOARD — Electronics Club, IIT Kanpur
+   Same cyber/HUD language as the homepage: CircuitBG constellation,
+   radar-sweep hero (paired with the Challenge page), scanlines,
+   vignette, RGB-split glitch title, angular scoreboard panels.
+   Uses the global design tokens defined in src/index.css.
+   ================================================================== */
+
+.lb-root {
   position: relative;
+  background: var(--bg-0);
+  color: var(--text);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+.lb-root *,
+.lb-root *::before,
+.lb-root *::after {
+  box-sizing: border-box;
+}
+
+/* ============================ HERO ============================ */
+.lb-hero {
+  position: relative;
+  z-index: 1;
+  min-height: 62vh;
   width: 100%;
-  /* Changed from height: 100vh to min-height to allow scrolling */
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Aligns content to top */
-  padding-bottom: 50px; /* Buffer at bottom */
-}
-
-.leaderboard-bg {
-  position: fixed; /* Fixed so the background stays put while content scrolls */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('/public/leaderboard-bg.jpg'); 
-  background-size: cover;
-  background-position: center;
-  opacity: 0.6;
-  z-index: -1;
-}
-
-.leaderboard-content {
-  background-color: rgba(0, 0, 0, 0.9); /* Added opacity for readability */
-  border-radius: 15px;
-  /* Removed absolute positioning to allow natural flow */
-  margin-top: 60px; /* Space from top */
-  text-align: center;
-  color: rgb(191, 255, 0);
-  padding: 40px;
-  max-width: 900px;
-  width: 90%;
-  /* Removed max-height and overflow to kill internal scrollbar */
-}
-
-.main-title {
-  font-size: 4rem;
-  margin-bottom: 40px;
-  border-bottom: 2px solid #BBDF4D;
-  padding-bottom: 20px;
-  display: inline-block;
-}
-
-/* New Styles for the Challenge Sections */
-.challenge-section {
-  margin-bottom: 60px;
-}
-
-.challenge-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 15px;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+  padding: 90px 20px 70px;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(187, 223, 77, 0.08), transparent 60%),
+    radial-gradient(80% 60% at 50% 100%, rgba(61, 242, 255, 0.08), transparent 60%),
+    var(--bg-0);
 }
 
-.challenge-header h2 {
-  font-size: 2.5rem;
+/* moving perspective grid, same rhythm as the Articles/Components heroes */
+.lb-grid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(circle at 50% 50%, black 10%, transparent 78%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 10%, transparent 78%);
+  animation: lb-grid-move 12s linear infinite;
+  pointer-events: none;
+}
+@keyframes lb-grid-move {
+  to { background-position: 46px 46px; }
+}
+
+/* ---- ghost podium: 2 · 1 · 3 bars rising behind the title ---- */
+.lb-podium {
+  position: absolute;
+  z-index: 1; /* under the vignette so hero copy stays legible */
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+/* each bar rises in, then keeps "holding its level" with a slow pulse —
+   like an equalizer that settled but is still live */
+.lb-podium-bar {
+  position: relative;
+  width: clamp(56px, 7vw, 88px);
+  border: 1px solid var(--line-strong);
+  border-bottom: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  transform-origin: bottom;
+}
+/* rank digit flickers in after its bar lands */
+.lb-podium-bar span {
+  animation: lb-digit-in 0.45s steps(3) both;
+}
+/* a data-tick line that keeps sweeping up each bar */
+.lb-podium-bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: currentColor;
+  opacity: 0;
+  animation: lb-tick-up 3s ease-in-out infinite;
+}
+.lb-podium-1 {
+  height: clamp(130px, 20vh, 190px);
+  color: var(--lime);
+  background: linear-gradient(180deg, rgba(187, 223, 77, 0.22), rgba(187, 223, 77, 0.02));
+  animation:
+    lb-rise 0.9s var(--ease-out) 0.35s both,
+    lb-level 3.4s ease-in-out 1.4s infinite,
+    lb-crown 2.6s ease-in-out 1.4s infinite;
+}
+.lb-podium-1 span { animation-delay: 0.95s; }
+.lb-podium-1::after { animation-delay: 1.4s; }
+.lb-podium-2 {
+  height: clamp(92px, 14vh, 134px);
+  color: var(--cyan);
+  background: linear-gradient(180deg, rgba(61, 242, 255, 0.16), rgba(61, 242, 255, 0.02));
+  animation:
+    lb-rise 0.9s var(--ease-out) 0.55s both,
+    lb-level 3.8s ease-in-out 1.6s infinite;
+}
+.lb-podium-2 span { animation-delay: 1.15s; }
+.lb-podium-2::after { animation-delay: 2.1s; }
+.lb-podium-3 {
+  height: clamp(66px, 10vh, 96px);
+  color: var(--magenta);
+  background: linear-gradient(180deg, rgba(255, 77, 157, 0.14), rgba(255, 77, 157, 0.02));
+  animation:
+    lb-rise 0.9s var(--ease-out) 0.75s both,
+    lb-level 4.2s ease-in-out 1.8s infinite;
+}
+.lb-podium-3 span { animation-delay: 1.35s; }
+.lb-podium-3::after { animation-delay: 2.8s; }
+
+@keyframes lb-rise {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+/* held-level breathing */
+@keyframes lb-level {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.045); }
+}
+/* the #1 bar wears the crown — pulsing glow */
+@keyframes lb-crown {
+  0%, 100% { box-shadow: 0 -8px 30px rgba(187, 223, 77, 0.15); }
+  50% { box-shadow: 0 -14px 44px rgba(187, 223, 77, 0.4); }
+}
+@keyframes lb-digit-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+/* score tick sweeping up the bar, fading as it climbs */
+@keyframes lb-tick-up {
+  0% { bottom: 0; opacity: 0.7; }
+  60% { opacity: 0.25; }
+  100% { bottom: calc(100% - 2px); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lb-podium-bar,
+  .lb-podium-bar span,
+  .lb-podium-bar::after {
+    animation: none;
+  }
+  .lb-podium-bar::after { opacity: 0; }
+}
+
+.lb-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: var(--vignette-inset);
+}
+
+/* HUD corner labels */
+.lb-hud {
+  position: absolute;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: rgba(187, 223, 77, 0.65);
+  pointer-events: none;
+}
+.lb-hud-tl { top: 18px; left: 20px; }
+.lb-hud-tr { top: 18px; right: 20px; }
+
+.lb-hero-content {
+  position: relative;
+  z-index: 4;
+  max-width: 720px;
+}
+
+.lb-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.5em;
+  color: var(--cyan);
+  margin: 0 0 18px;
+  opacity: 0.9;
+}
+
+/* scan-wipe reveal: the title is uncovered left→right by a lime
+   score-bar sweep, then settles into a slow scoreboard flicker */
+.lb-title {
+  font-size: clamp(2.2rem, 8vw, 5.2rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
   margin: 0;
   color: #fff;
+  position: relative;
+  text-shadow: 0 0 40px rgba(187, 223, 77, 0.35);
+  clip-path: inset(-8px 100% -8px 0);
+  animation:
+    lb-title-wipe 0.9s var(--ease-out) 0.2s forwards,
+    lb-board-flicker 5s 1.6s infinite;
+}
+@keyframes lb-title-wipe {
+  to { clip-path: inset(-8px 0% -8px 0); }
+}
+/* the sweeping score-bar itself */
+.lb-title::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: 0;
+  width: 4px;
+  background: var(--lime);
+  box-shadow: var(--glow-lime-md);
+  opacity: 0;
+  animation: lb-scanbar 0.9s var(--ease-out) 0.2s forwards;
+}
+@keyframes lb-scanbar {
+  0% { left: 0; opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: calc(100% - 4px); opacity: 0; }
+}
+/* occasional stadium-board blink */
+@keyframes lb-board-flicker {
+  0%, 91%, 100% { opacity: 1; }
+  92% { opacity: 0.72; }
+  93% { opacity: 1; }
+  95% { opacity: 0.85; }
+  96% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lb-title {
+    animation: none;
+    clip-path: none;
+  }
+  .lb-title::after { animation: none; opacity: 0; }
 }
 
-.challenge-month {
-  font-size: 1.2rem;
-  color: #BBDF4D;
-  font-weight: bold;
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+.lb-tagline {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 20px 0 26px;
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 2vw, 0.95rem);
+  letter-spacing: 0.35em;
+  color: var(--text-muted);
 }
+.lb-dot { color: var(--lime); }
 
-table {
-  color: white;
-  margin: 0 auto; /* Center table */
-  border-collapse: collapse;
-  width: 100%;
-}
-
-th, td {
-  border: 1px solid #BBDF4D;
-  padding: 12px 15px;
-  text-align: center; /* Center text in cells */
-}
-
-th {
-  background-color: #222;
-  color: #BBDF4D;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-}
-
-td {
-  background-color: #111;
+.lb-sub {
+  margin: 0 auto;
+  max-width: 560px;
   font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-dim);
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .main-title {
-    font-size: 2.5rem;
-  }
-  .challenge-header h2 {
-    font-size: 1.8rem;
-  }
-  th, td {
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-}
-/* ... existing code ... */
-
-/* New Styles for the Challenge Image */
-.challenge-image-container {
-  margin-top: 20px;
-  width: 100%;
+/* scroll cue */
+.lb-scroll-cue {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.lb-scroll-cue span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+}
+.lb-scroll-track {
+  width: 2px;
+  height: 30px;
+  background: var(--line-strong);
+  position: relative;
+  overflow: hidden;
+}
+.lb-scroll-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 10px;
+  background: var(--lime);
+  animation: lb-scroll-drop 1.8s ease-in-out infinite;
+}
+@keyframes lb-scroll-drop {
+  0% { top: -10px; opacity: 0; }
+  30% { opacity: 1; }
+  100% { top: 30px; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lb-scroll-dot { animation: none; top: 10px; opacity: 1; }
 }
 
-.challenge-image-container {
-  margin-top: 30px;
+/* ============================ BODY ============================ */
+/* transparent so the CircuitBG constellation keeps drifting behind */
+.lb-body {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter) 70px;
+}
+
+/* loading / empty status lines */
+.lb-status {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.22em;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 40px 0;
+}
+.lb-blink {
+  color: var(--lime);
+  animation: lb-blink 1s steps(2) infinite;
+}
+@keyframes lb-blink {
+  50% { opacity: 0; }
+}
+
+/* ---- scoreboard panels: angular HUD cards, same recipe as the
+   team deck (clip-cut corners + lime/cyan bracket reticles) ---- */
+.lb-section {
+  position: relative;
+  margin-bottom: clamp(46px, 7vh, 70px);
+  padding: clamp(22px, 4vw, 38px);
+  background: linear-gradient(158deg, rgba(14, 20, 27, 0.96), rgba(8, 11, 17, 0.96));
+  border: 1px solid var(--line);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 22px) 0,
+    100% 22px,
+    100% 100%,
+    22px 100%,
+    0 calc(100% - 22px)
+  );
+  transition: border-color 0.3s var(--ease-out);
+}
+.lb-section:hover { border-color: var(--line-strong); }
+
+.lb-section::before,
+.lb-section::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  z-index: 3;
+  pointer-events: none;
+}
+.lb-section::before {
+  top: 9px;
+  left: 9px;
+  border-top: 2px solid var(--lime);
+  border-left: 2px solid var(--lime);
+}
+.lb-section::after {
+  bottom: 9px;
+  right: 9px;
+  border-bottom: 2px solid var(--cyan);
+  border-right: 2px solid var(--cyan);
+}
+
+.lb-section-head {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.lb-month {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 8px;
+}
+.lb-challenge {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-strong);
+}
+.lb-challenge::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 3px;
+  margin: 12px auto 0;
+  background: linear-gradient(90deg, var(--lime), var(--cyan));
+}
+
+/* ---- table: mono HUD readout ---- */
+/* wide sheets scroll inside the panel instead of breaking the layout */
+.lb-table-wrap {
+  overflow-x: auto;
+}
+
+.lb-table {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.3); /* Slight background to frame it */
-  border-radius: 10px;
+  border-collapse: collapse;
 }
 
-.challenge-image {
+.lb-table th {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lime);
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  padding: 12px 16px;
+  white-space: nowrap;
+}
+
+.lb-table td {
+  font-size: 0.95rem;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid var(--line-soft);
+  padding: 11px 16px;
+  text-align: center;
+  transition: background 0.2s var(--ease-out);
+}
+
+.lb-table tbody tr:hover td {
+  background: rgba(187, 223, 77, 0.06);
+}
+
+/* the Rank column reads as a mono HUD readout in every row */
+.lb-rank-cell {
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+/* podium accents — keyed off the sheet's Rank column, not row order */
+.lb-rank-1 td { background: rgba(187, 223, 77, 0.08); }
+.lb-rank-1 td:first-child { box-shadow: inset 3px 0 0 var(--lime); }
+.lb-rank-1 .lb-rank-cell {
+  color: var(--lime);
+  text-shadow: 0 0 12px rgba(187, 223, 77, 0.6);
+}
+
+.lb-rank-2 td { background: rgba(61, 242, 255, 0.05); }
+.lb-rank-2 td:first-child { box-shadow: inset 3px 0 0 var(--cyan); }
+.lb-rank-2 .lb-rank-cell { color: var(--cyan); }
+
+.lb-rank-3 td { background: rgba(255, 77, 157, 0.05); }
+.lb-rank-3 td:first-child { box-shadow: inset 3px 0 0 var(--magenta); }
+.lb-rank-3 .lb-rank-cell { color: var(--magenta); }
+
+/* ---- highlight image: framed like a captured transmission ---- */
+.lb-highlight {
+  margin: 26px 0 0;
+  text-align: center;
+}
+.lb-highlight-tag {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.lb-highlight-img {
   max-width: 100%;
-  max-height: 500px;
+  max-height: 480px;
   width: auto;
-  border-radius: 8px;
-  border: 2px solid #BBDF4D;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
   object-fit: contain;
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.5), var(--glow-lime-sm);
+}
+
+/* ============================ RESPONSIVE ============================ */
+@media (max-width: 640px) {
+  .lb-hero { min-height: 54vh; padding: 70px 16px 56px; }
+  .lb-hud { display: none; }
+
+  .lb-body { padding-top: 50px; }
+
+  .lb-table th { padding: 9px 10px; font-size: 0.62rem; }
+  .lb-table td { padding: 8px 10px; font-size: 0.85rem; }
 }

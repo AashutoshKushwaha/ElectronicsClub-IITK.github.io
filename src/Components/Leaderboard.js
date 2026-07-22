@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import ScrollHUD from './cyber/ScrollHUD';
+import Reveal from './cyber/Reveal';
+import Cursor from './cyber/Cursor';
 import './Leaderboard.css';
 
 const Leaderboard = () => {
   const [groupedData, setGroupedData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Helper: Converts Google Drive share links to direct image links
-// Helper: Converts Google Drive share links to a high-quality thumbnail link
+  // Helper: Converts Google Drive share links to a high-quality thumbnail link
   const getDirectImageSrc = (url) => {
     if (!url) return null;
-    
+
     // Check if it's a google drive link
     if (url.includes('drive.google.com')) {
       // Extract the ID
       const idMatch = url.match(/\/d\/(.*?)\/|id=(.*?)(&|$)/);
       const id = idMatch ? (idMatch[1] || idMatch[2]) : null;
       if (id) {
-        // CHANGED: Use the 'thumbnail' endpoint with size w1000 (width 1000px)
-        // This is much more reliable for embedding than export=view
+        // Use the 'thumbnail' endpoint with size w1000 (width 1000px) —
+        // much more reliable for embedding than export=view
         return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
       }
     }
@@ -41,9 +43,9 @@ const Leaderboard = () => {
         });
 
         const groups = {};
-        
+
         rawEntries.forEach(entry => {
-          const challengeName = entry[headers[0]]; 
+          const challengeName = entry[headers[0]];
           const month = entry[headers[1]];
           const groupKey = `${month}::${challengeName}`;
 
@@ -59,8 +61,7 @@ const Leaderboard = () => {
           // Create a copy of the row data
           const entryData = { ...entry };
 
-          // 1. Look for the ImageURL column
-          // We look for a column strictly named "ImageURL"
+          // 1. Look for the ImageURL column (strictly named "ImageURL")
           if (entryData['ImageURL']) {
             // If this group doesn't have an image yet, set it
             if (!groups[groupKey].imageUrl) {
@@ -72,7 +73,7 @@ const Leaderboard = () => {
           delete entryData[headers[0]]; // Remove Challenge Name column
           delete entryData[headers[1]]; // Remove Month column
           delete entryData['ImageURL']; // Remove ImageURL column (so it doesn't show in table)
-          
+
           groups[groupKey].entries.push(entryData);
         });
 
@@ -92,55 +93,143 @@ const Leaderboard = () => {
   }, []);
 
   return (
-    <div className="leaderboard-container">
-      <div className="leaderboard-bg" />
-      <div className="leaderboard-content">
-        <h1 className="main-title">Leaderboard</h1>
-        
-        {loading && <p>Loading leaderboard...</p>}
+    <div className="lb-root">
+      {/* same neon dot + lagging ring cursor used on the other pages */}
+      <Cursor />
+
+      <ScrollHUD
+        sections={[
+          { id: "lb-hero", code: "00", label: "SCOREBOARD" },
+          { id: "lb-body", code: "01", label: "STANDINGS" },
+        ]}
+      />
+
+      <section className="lb-hero" id="lb-hero">
+        {/* moving square grid — same rhythm as the Articles/Components heroes */}
+        <div className="lb-grid-overlay" aria-hidden="true" />
+        <div className="lb-vignette" aria-hidden="true" />
+
+        {/* ghost podium rising behind the title — 2 · 1 · 3 */}
+        <div className="lb-podium" aria-hidden="true">
+          <div className="lb-podium-bar lb-podium-2"><span>2</span></div>
+          <div className="lb-podium-bar lb-podium-1"><span>1</span></div>
+          <div className="lb-podium-bar lb-podium-3"><span>3</span></div>
+        </div>
+
+        <span className="lb-hud lb-hud-tl">SYS // SCOREBOARD_ONLINE</span>
+        <span className="lb-hud lb-hud-tr">RANKINGS · LIVE_FEED</span>
+
+        <div className="lb-hero-content">
+          <Reveal delay={0} y={16}>
+            <p className="lb-eyebrow">&gt; FETCHING_RANKINGS</p>
+          </Reveal>
+
+          {/* scan-wipe reveal — a lime score-bar sweeps the title in */}
+          <h1 className="lb-title">LEADERBOARD</h1>
+
+          <Reveal delay={0.25} y={16}>
+            <p className="lb-tagline">
+              <span>COMPETE</span>
+              <span className="lb-dot">·</span>
+              <span>SCORE</span>
+              <span className="lb-dot">·</span>
+              <span>CLIMB</span>
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.4} y={16}>
+            <p className="lb-sub">
+              Monthly challenge standings, straight from the scorekeepers.
+              Top the board and claim the bragging rights.
+            </p>
+          </Reveal>
+
+        </div>
+
+        <div className="lb-scroll-cue" aria-hidden="true">
+          <span>SCROLL</span>
+          <div className="lb-scroll-track">
+            <div className="lb-scroll-dot" />
+          </div>
+        </div>
+      </section>
+
+      <div className="lb-body" id="lb-body">
+        {loading && (
+          <p className="lb-status">
+            &gt; SYNCING_SCOREBOARD <span className="lb-blink">▮</span>
+          </p>
+        )}
 
         {!loading && groupedData.map((group, index) => (
-          <div key={index} className="challenge-section">
-            <div className="challenge-header">
-              <h2>{group.challengeName}</h2>
-              <span className="challenge-month">{group.month}</span>
-            </div>
-            
-            <table>
-              <thead>
-                <tr>
-                  {/* Dynamically render headers based on remaining keys */}
-                  {group.entries.length > 0 && Object.keys(group.entries[0]).map(h => (
-                    <th key={h}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {group.entries.map((row, i) => (
-                  <tr key={i}>
-                    {Object.values(row).map((val, j) => (
-                      <td key={j}>{val}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            {/* Check if this group has an image URL and render it */}
-            {group.imageUrl && (
-              <div className="challenge-image-container">
-                <img 
-                  src={group.imageUrl} 
-                  alt={`${group.month} Challenge Highlight`} 
-                  className="challenge-image"
-                />
+          <Reveal key={`${group.month}::${group.challengeName}`} y={34}>
+            <div className="lb-section">
+              <div className="lb-section-head">
+                <span className="lb-month">{`// ${group.month}`}</span>
+                <h2 className="lb-challenge">{group.challengeName}</h2>
               </div>
-            )}
 
-          </div>
+              <div className="lb-table-wrap">
+                <table className="lb-table">
+                  <thead>
+                    <tr>
+                      {/* Dynamically render headers based on remaining keys */}
+                      {group.entries.length > 0 && Object.keys(group.entries[0]).map(h => (
+                        <th key={h}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(() => {
+                      /* podium accents key off the sheet's Rank column when
+                         present (rows aren't guaranteed rank-ordered);
+                         fall back to row order otherwise */
+                      const rankKey =
+                        group.entries.length > 0
+                          ? Object.keys(group.entries[0]).find(k => /rank/i.test(k))
+                          : null;
+                      return group.entries.map((row, i) => {
+                        const rank = rankKey ? parseInt(row[rankKey], 10) : i + 1;
+                        return (
+                          <tr
+                            key={i}
+                            className={rank >= 1 && rank <= 3 ? `lb-rank lb-rank-${rank}` : undefined}
+                          >
+                            {Object.entries(row).map(([k, val], j) => (
+                              <td
+                                key={j}
+                                className={rankKey && k === rankKey ? "lb-rank-cell" : undefined}
+                              >
+                                {val}
+                              </td>
+                            ))}
+                          </tr>
+                        );
+                      });
+                    })()}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Check if this group has an image URL and render it */}
+              {group.imageUrl && (
+                <figure className="lb-highlight">
+                  <span className="lb-highlight-tag">{'// HIGHLIGHT'}</span>
+                  <img
+                    src={group.imageUrl}
+                    alt={`${group.month} Challenge Highlight`}
+                    className="lb-highlight-img"
+                    loading="lazy"
+                  />
+                </figure>
+              )}
+            </div>
+          </Reveal>
         ))}
-        
-        {!loading && groupedData.length === 0 && <p>No data found.</p>}
+
+        {!loading && groupedData.length === 0 && (
+          <p className="lb-status">&gt; NO_RECORDS_FOUND</p>
+        )}
       </div>
     </div>
   );
