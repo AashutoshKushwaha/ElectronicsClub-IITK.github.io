@@ -21,7 +21,7 @@ const articles = [
 const MediumArticles = () => {
   return (
     <div style={{ padding: "24px", minHeight: "60vh" }}>
-      <h1 style={{ color: "#acce46", marginBottom: 8 }}>Medium Articles</h1>
+      <h1 style={{ color: "#bbdf4d", marginBottom: 8 }}>Medium Articles</h1>
       <p style={{ color: "#aaa", marginBottom: 24 }}>
         Curated articles by Electronics Club, IIT Kanpur on Medium.
       </p>
@@ -42,12 +42,12 @@ const MediumArticles = () => {
                 background: "#0e0e0e",
                 transition: "transform 0.15s ease, border-color 0.15s ease",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#acce46")}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#bbdf4d")}
               onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#2a2a2a")}
             >
               <div style={{ fontWeight: 700, fontSize: 18, color: "#eaeaea" }}>{a.title}</div>
               <div style={{ marginTop: 8, color: "#cfd2d6", lineHeight: 1.4 }}>{a.description}</div>
-              <div style={{ marginTop: 12, color: "#acce46", fontSize: 14 }}>Read on Medium →</div>
+              <div style={{ marginTop: 12, color: "#bbdf4d", fontSize: 14 }}>Read on Medium →</div>
             </div>
           </a>
         ))}
