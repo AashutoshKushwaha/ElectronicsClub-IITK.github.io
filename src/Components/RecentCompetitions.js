@@ -35,7 +35,7 @@ const RecentCompetitions = () => {
 
   return (
     <div style={{ padding: "24px", minHeight: "60vh" }}>
-      <h1 style={{ color: "#acce46", marginBottom: 8 }}>Recent Competitions</h1>
+      <h1 style={{ color: "#bbdf4d", marginBottom: 8 }}>Recent Competitions</h1>
       <p style={{ color: "#aaa", marginBottom: 24 }}>
         Explore the latest competitions, showcases and challenges hosted by the Electronics Club.
       </p>
@@ -60,7 +60,7 @@ const RecentCompetitions = () => {
                 transition: "transform 0.15s ease, border-color 0.15s ease",
               }}
               className="recent-competition-card"
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#acce46")}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#bbdf4d")}
               onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#2a2a2a")}
             >
               <div style={{ fontSize: 12, color: "#bbb" }}>
@@ -72,7 +72,7 @@ const RecentCompetitions = () => {
               </div>
               <div style={{ fontWeight: 700, fontSize: 18, marginTop: 6, color: "#eaeaea" }}>{c.title}</div>
               <div style={{ marginTop: 8, color: "#cfd2d6", lineHeight: 1.4 }}>{c.description}</div>
-              <div style={{ marginTop: 12, color: "#acce46", fontSize: 14 }}>Learn more →</div>
+              <div style={{ marginTop: 12, color: "#bbdf4d", fontSize: 14 }}>Learn more →</div>
             </div>
           </a>
         ))}
