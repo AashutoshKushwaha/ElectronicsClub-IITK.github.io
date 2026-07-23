@@ -62,7 +62,7 @@ const PURPOSE_OPTIONS = [
 ];
 
 const TEXT_FIELDS = [
-  { key: 'name', label: 'NAME_OF_INTENDER', placeholder: 'Full name', required: true },
+  { key: 'name', label: 'NAME_OF_INDENTER', placeholder: 'Full name', required: true },
   { key: 'issuedBy', label: 'ISSUED_BY', placeholder: 'Name & role of the person issuing it', required: true },
   { key: 'email', label: 'EMAIL', placeholder: 'you@iitk.ac.in', type: 'email', required: true },
   { key: 'mobile', label: 'MOBILE_NO', placeholder: '10-digit number', type: 'tel', required: true },
@@ -177,7 +177,7 @@ const Components = () => {
 
           <Reveal delay={0.4} y={16}>
             <p className="cp-sub">
-              Taking a part from the club? File the issue log below --
+              Taking a part from the club? File the issue log below —
               it routes straight into the component register.
             </p>
           </Reveal>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Papa from 'papaparse';
 import ScrollHUD from './cyber/ScrollHUD';
 import Reveal from './cyber/Reveal';
 import Cursor from './cyber/Cursor';
@@ -28,19 +29,21 @@ const Leaderboard = () => {
   };
 
   useEffect(() => {
-    fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRlYfXayJkfwtIWcG5-w8_UEt66uGRqDLOf4SFBbtzuO_5zO9a7Uwv8a4-An3f9thC-5NtdCqAkiNzR/pub?output=csv&gid=918222027')
-      .then(res => res.text())
-      .then(csv => {
-        const [headerLine, ...lines] = csv.trim().split('\n');
-        const headers = headerLine.split(',').map(h => h.trim());
-
-        const rawEntries = lines.map(line => {
-          const cols = line.split(',');
-          return headers.reduce((obj, key, i) => {
-            obj[key] = cols[i] ? cols[i].trim() : '';
-            return obj;
-          }, {});
-        });
+    // Papa (vs a naive split-on-newline) survives quoted cells: commas AND
+    // line breaks inside a sheet cell parse correctly — a multi-line
+    // challenge name reaches the page intact and renders via `pre-line`
+    Papa.parse(
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vRlYfXayJkfwtIWcG5-w8_UEt66uGRqDLOf4SFBbtzuO_5zO9a7Uwv8a4-An3f9thC-5NtdCqAkiNzR/pub?output=csv&gid=918222027',
+      {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        // trims stray padding at the edges of every value but keeps
+        // newlines INSIDE a cell (trim only strips leading/trailing)
+        transform: (value) => value.trim(),
+        complete: (result) => {
+        const headers = result.meta.fields;
+        const rawEntries = result.data;
 
         const groups = {};
 
@@ -85,11 +88,13 @@ const Leaderboard = () => {
 
         setGroupedData(sortedGroups);
         setLoading(false);
-      })
-      .catch(err => {
-        console.error("Error fetching CSV:", err);
-        setLoading(false);
-      });
+        },
+        error: (err) => {
+          console.error('Error fetching CSV:', err);
+          setLoading(false);
+        },
+      }
+    );
   }, []);
 
   return (

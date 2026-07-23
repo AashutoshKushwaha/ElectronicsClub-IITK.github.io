@@ -2,7 +2,7 @@
     "Database":[
         {"FolderName":"The Ultimate IC Handbook",
         "Description":"One stop solution for all the glitches in your electronic system",
-        "Author":"Miscillaneous",
+        "Author":"Miscellaneous",
         "Numnber-of-files":"3",
         "Files":[
             {
@@ -44,7 +44,7 @@
         },
         {
             "FolderName":"Android App Development 2011",
-            "Description":"This folder contains the lectures for Andriod Development that took place in 2011",
+            "Description":"This folder contains the lectures for Android Development that took place in 2011",
             "Author":"Secretaries 10-11",
             "Numnber-of-files":"2",
             "Files":[
@@ -60,7 +60,7 @@
 
         },
         {
-            "FolderName":"Embeeded Systems",
+            "FolderName":"Embedded Systems",
             "Description":"A compilation of all lectures on embeeded systems developed by Chirag Sangani",
             "Author":"Chirag Sangani",
             "Numnber-of-files":"3",
@@ -81,9 +81,9 @@
 
         },
         {
-            "FolderName":"Embeeded Systems",
+            "FolderName":"Embedded Systems",
             "Description":"A compilation of lectures on embeeded systems developed by Secretaries'10-11",
-            "Author":"Miscillaneous",
+            "Author":"Miscellaneous",
             "Numnber-of-files":"3",
             "Files":[
                 {
@@ -106,7 +106,7 @@
 
         },
         {
-            "FolderName":"Embeeded Systems -2013",
+            "FolderName":"Embedded Systems -2013",
             "Description":"Contains brief introductory powerpoints on Arduino,communication,FPGA etc",
             "Author":"Secretaries 13-14",
             "Numnber-of-files":"3",
@@ -136,7 +136,7 @@
         },
         
         {
-            "FolderName":"Embeeded Systems -2012",
+            "FolderName":"Embedded Systems -2012",
             "Description":"Contains brief introductory powerpoints on Android app dev,communication,Kinect,ADC etc",
             "Author":"Secretaries 12-13",
             "Numnber-of-files":"3",
@@ -165,7 +165,7 @@
 
         }, 
         {
-            "FolderName":"Embeeded Systems -2014",
+            "FolderName":"Embedded Systems -2014",
             "Description":"Contains brief introductory powerpoints on Kinect, Arduino, Communication,Image Processing  etc",
             "Author":"Secretaries 14",
             "Numnber-of-files":"3",
@@ -522,7 +522,7 @@
         },
         {"FolderName":"Tutorial BootLoader",
         "Description":"The common method to program a microcontroller is to use a programmer for that particular microcontroller",
-        "Author":"Miscillaneous",
+        "Author":"Miscellaneous",
         "Numnber-of-files":"3",
         "Files":[
             {
@@ -533,7 +533,7 @@
         },
         {"FolderName":"Tutorial PS2 MOUSE INTERFACE WITH MICROCONTROLLER ",
         "Description":"This tutorial describes the way of interfacing a PS2 mouse with a microcontroller (atmega 16/32) and getting the mouse output on LCD. ",
-        "Author":"Miscillaneous",
+        "Author":"Miscellaneous",
         "Numnber-of-files":"3",
         "Files":[
             {
@@ -544,7 +544,7 @@
         },
         {"FolderName":"Tutorial GSM : Global System for Mobile Communication ",
         "Description":"This tutorial describes the way to interface GSM modem with a microcontroller(Atmega16/32). ",
-        "Author":"Miscillaneous",
+        "Author":"Miscellaneous",
         "Numnber-of-files":"3",
         "Files":[
             {
@@ -566,7 +566,7 @@
         },
         {"FolderName":"Tutorial MONOCHROMATIC GRAPHICAL LCD ",
         "Description":"this tutorial describes the method of building graphics on LCD  ",
-        "Author":"Miscillaneous",
+        "Author":"Miscellaneous",
         "Numnber-of-files":"3",
         "Files":[
             {
@@ -577,7 +577,7 @@
         },
         {"FolderName":"Tutorial KEYBOARD INTERFACE WITH MICROCONTROLLER ",
         "Description":"This tutorial describes one way of doing this i.e. interfacing a standard PS2 keyboard with Atmega (microcontroller) to display text on a LCD. ",
-        "Author":"Miscillaneous",
+        "Author":"Miscellaneous",
         "Numnber-of-files":"3",
         "Files":[
             {
@@ -588,7 +588,7 @@
         },
         {"FolderName":"Club Handout K Map ",
         "Description":"Logic simplification with Karnaugh maps",
-        "Author":"Miscillaneous",
+        "Author":"Miscellaneous",
         "Numnber-of-files":"3",
         "Files":[
             {
@@ -598,7 +598,7 @@
         ]
         },
         {"FolderName":"Synthesizing and Simulating Verilog code  ",
-        "Description":"Usage of Xilinix Programmer",
+        "Description":"Usage of Xilinx Programmer",
         "Author":"Neeraj Kulkarni",
         "Numnber-of-files":"3",
         "Files":[
@@ -610,7 +610,7 @@
         },
         {"FolderName":"Basic IC Books  ",
         "Description":"Description of Various IC's",
-        "Author":"Miscillaneous",
+        "Author":"Miscellaneous",
         "Numnber-of-files":"3",
         "Files":[
             {
@@ -621,7 +621,7 @@
         },
         {"FolderName":" Tutorial FPGA ",
         "Description":"Introduction to FPGA",
-        "Author":"Miscillaneous",
+        "Author":"Miscellaneous",
         "Numnber-of-files":"3",
         "Files":[
             {
@@ -666,7 +666,7 @@
         ]
         },
         {"FolderName":"Android App Dev tutorial",
-        "Description":" Softwares and plugins need to be installed step by step before working on android applications",
+        "Description":" Software and plugins need to be installed step by step before working on android applications",
         "Author":"Salman A. Khan",
         "Numnber-of-files":"3",
         "Files":[
@@ -689,7 +689,7 @@
         },
         {"FolderName":"Ethernet Chat Client Tutorial",
         "Description":" Enc28j60 is an ethernet IC which transmits and receives the data over ethernet",
-        "Author":"Miscillaneous",
+        "Author":"Miscellaneous",
         "Numnber-of-files":"3",
         "Files":[
             {
@@ -700,7 +700,7 @@
         },
         {"FolderName":"Open CV tutorial : Image Processing",
         "Description":" Using OpenCV for Image Processing",
-        "Author":"Miscillaneous",
+        "Author":"Miscellaneous",
         "Numnber-of-files":"3",
         "Files":[
             {
