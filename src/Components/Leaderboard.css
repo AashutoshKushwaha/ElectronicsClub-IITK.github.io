@@ -409,6 +409,9 @@
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--text-strong);
+  /* a line break inside the sheet's challenge-name cell renders as a real
+     line break here (Papa preserves in-cell newlines) */
+  white-space: pre-line;
 }
 .lb-challenge::after {
   content: "";
